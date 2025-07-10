@@ -169,4 +169,9 @@ exports.handler = async function(event, context) {
         error: { code: 500, message: "Internal error occurred" }
       })
     };
+<<<<<<< HEAD
   }
+=======
+  }
+};
+>>>>>>> 0006b384c22c57c1d73dbad143573d7727b30d33
