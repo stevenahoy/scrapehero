@@ -6,7 +6,17 @@ const JWT_SECRET = process.env.JWT_SECRET;
 const headers = { "Content-Type": "application/json" };
 
 exports.handler = async function(event) {
-  if (event.httpMethod !== "POST") {
+  let username, password;
+
+  if (event.httpMethod === "POST") {
+    const body = JSON.parse(event.body);
+    username = body.username;
+    password = body.password;
+  } else if (event.httpMethod === "GET") {
+    const params = new URLSearchParams(event.queryStringParameters);
+    username = params.get("username");
+    password = params.get("password");
+  } else {
     return {
       statusCode: 405,
       headers,
@@ -14,7 +24,6 @@ exports.handler = async function(event) {
     };
   }
 
-  const { username, password } = JSON.parse(event.body);
   const usersPath = path.join(__dirname, "users.json");
   const users = JSON.parse(fs.readFileSync(usersPath));
 
