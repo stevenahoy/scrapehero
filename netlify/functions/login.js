@@ -15,8 +15,8 @@ exports.handler = async function(event) {
   }
 
   const { username, password } = JSON.parse(event.body);
-  const usersFile = path.join(__dirname, "users.json");
-  const users = JSON.parse(fs.readFileSync(usersFile));
+  const usersPath = path.join(__dirname, "users.json");
+  const users = JSON.parse(fs.readFileSync(usersPath));
 
   const user = users.find(u => u.username === username && u.password === password);
   if (!user) {
